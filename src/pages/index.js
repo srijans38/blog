@@ -16,7 +16,7 @@ function Index() {
     <main>
       <Helmet>
         <title>Srijan's Blog</title>
-        <meta name="description" content="This is Srijan's Blog">
+        <meta name="description" content="This is Srijan's Blog" />
       </Helmet>
       <h1>Gatsby + Node.js (TypeScript) API</h1>
       <h2>
