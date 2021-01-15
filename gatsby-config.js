@@ -1,17 +1,33 @@
 module.exports = {
   siteMetadata: {
-    title: 'Srijan\'s Blog',
+    siteUrl: 'https://blog.srij.dev/',
+    title: "Srijan's Blog",
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        name: 'Srijan\'s Blog',
-        short_name: 'Srijan\'s Blog',
-        start_url: '/',
-        icon: 'src/images/gatsby-icon.png',
+        name: "images",
+        path: `${__dirname}/src/images`,
       },
     },
+    `gatsby-plugin-react-helmet`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-postcss`,
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     name: 'Srijan\'s Blog',
+    //     short_name: 'Srijan\'s Blog',
+    //     start_url: '/',
+    //   },
+    // },
   ],
 };
