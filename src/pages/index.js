@@ -35,6 +35,7 @@ function Index({ data }) {
           </h1>
           <div className="flex flex-col justify-between h-full absolute right-0 top-0">
             <svg
+            className="h-10 w-10 lg:h-12 lg:w-12"
               width="48"
               height="48"
               viewBox="0 0 48 48"
