@@ -8,8 +8,8 @@ function Index({ data }) {
     query MyQuery {
       file(name: { eq: "me" }) {
         childImageSharp {
-          fluid(traceSVG: { color: "#52E8E8" }) {
-            ...GatsbyImageSharpFluid_tracedSVG
+          fluid {
+            ...GatsbyImageSharpFluid
           }
         }
       }
