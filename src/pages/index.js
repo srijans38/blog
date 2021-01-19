@@ -2,19 +2,23 @@ import React from 'react';
 import Img from 'gatsby-image';
 import { Helmet } from 'react-helmet';
 import { graphql, useStaticQuery } from 'gatsby';
+import usePostList from '../hooks/use-post-list';
+import PostDisplay from '../components/post-display';
 
 function Index({ data }) {
   const me = useStaticQuery(graphql`
-    query MyQuery {
+    query {
       file(name: { eq: "me" }) {
         childImageSharp {
           fluid {
-            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
     }
   `);
+
+  const posts = usePostList();
 
   return (
     <main className="container mt-12 px-6 lg:px-36 sm:mx-auto font-body box-border">
@@ -102,6 +106,9 @@ function Index({ data }) {
         </div>
       </header>
       <div className="mt-12 h-px w-full bg-gradient-to-r from-white via-black to-white"></div>
+      {posts.map((post) => (
+        <PostDisplay key={post.slug} post={post} />
+      ))}
     </main>
   );
 }
