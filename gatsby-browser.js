@@ -4,3 +4,4 @@ import '@fontsource/playfair-display/600.css';
 import '@fontsource/playfair-display/700.css';
 import '@fontsource/playfair-display/900.css';
 import './src/styles/global.css';
+require('prismjs/themes/prism.css');

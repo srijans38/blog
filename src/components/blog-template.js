@@ -7,7 +7,7 @@ import '../styles/blogmdx.css';
 export default function BlogTemplate({ data: { mdx: post } }) {
   return (
     <>
-      <div className="fixed mt-0 bg-transparent blur-filter w-screen h-16 top-0">
+      <div className="fixed mt-0 bg-transparent blur-filter w-screen h-16 top-0 z-10">
         <div className="px-6 max-w-5xl sm:mx-auto lg:px-4 flex items-center h-full font-heading text-3xl font-bold">
           <Link to="/">
             <p>Srijan's Blog</p>
@@ -21,7 +21,9 @@ export default function BlogTemplate({ data: { mdx: post } }) {
           <p>|</p>
           <p>{post.timeToRead} minute read</p>
         </div>
-        <MDXRenderer>{post.body}</MDXRenderer>
+        <div className="content">
+          <MDXRenderer>{post.body}</MDXRenderer>
+        </div>
       </Layout>
     </>
   );

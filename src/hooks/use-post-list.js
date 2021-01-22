@@ -5,7 +5,7 @@ const usePostList = () => {
     query MyQuery {
       allMdx(sort: { fields: frontmatter___image___changeTime, order: DESC }) {
         nodes {
-          excerpt(pruneLength: 300)
+          excerpt(pruneLength: 200)
           timeToRead
           frontmatter {
             author
