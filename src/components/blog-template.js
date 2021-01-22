@@ -2,6 +2,7 @@ import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
 import Layout from './layout';
+import '../styles/blogmdx.css';
 
 export default function BlogTemplate({ data: { mdx: post } }) {
   return (
@@ -14,8 +15,12 @@ export default function BlogTemplate({ data: { mdx: post } }) {
         </div>
       </div>
       <Layout mt="mt-28">
-        <h1 className="font-heading text-5xl">{post.frontmatter.title}</h1>
-        <p>{post.frontmatter.author}</p>
+        <h1>{post.frontmatter.title}</h1>
+        <div className="flex mt-4 mb-8 space-x-3 text-gray-600 text-sm">
+          <p>{post.frontmatter.date}</p>
+          <p>|</p>
+          <p>{post.timeToRead} minute read</p>
+        </div>
         <MDXRenderer>{post.body}</MDXRenderer>
       </Layout>
     </>
@@ -28,8 +33,10 @@ export const query = graphql`
       frontmatter {
         author
         title
+        date
       }
       body
+      timeToRead
     }
   }
 `;

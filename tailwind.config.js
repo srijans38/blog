@@ -8,12 +8,12 @@ module.exports = {
         body: ['Open Sans', 'sans-serif'],
       },
       boxShadow: {
-        img: '8px 8px 13px rgba(0, 0, 0, 0.25)'
-      }
+        img: '8px 8px 13px rgba(0, 0, 0, 0.25)',
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

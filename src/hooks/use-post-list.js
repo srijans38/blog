@@ -3,13 +3,15 @@ import { graphql, useStaticQuery } from 'gatsby';
 const usePostList = () => {
   const data = useStaticQuery(graphql`
     query MyQuery {
-      allMdx {
+      allMdx(sort: { fields: frontmatter___image___changeTime, order: DESC }) {
         nodes {
-          excerpt
+          excerpt(pruneLength: 300)
+          timeToRead
           frontmatter {
             author
             slug
             title
+            date
             image {
               childImageSharp {
                 fluid(maxHeight: 200, maxWidth: 180) {
@@ -29,6 +31,8 @@ const usePostList = () => {
     author: post.frontmatter.author,
     excerpt: post.excerpt,
     image: post.frontmatter.image.childImageSharp.fluid,
+    date: post.frontmatter.date,
+    timeToRead: post.timeToRead,
   }));
 };
 

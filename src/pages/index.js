@@ -107,7 +107,7 @@ function Index({ data }) {
         </div>
       </header>
       <div className="mt-12 h-px w-full bg-gradient-to-r from-white via-black to-white"></div>
-      <div className="mt-12 space-y-16">
+      <div className="mt-8 md:mt-12 space-y-8 md:space-y-16">
         {posts.map((post) => (
           <PostDisplay key={post.slug} post={post} />
         ))}
