@@ -10,6 +10,13 @@ const usePostList = () => {
             author
             slug
             title
+            image {
+              childImageSharp {
+                fluid(maxHeight: 200, maxWidth: 180) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
           }
         }
       }
@@ -21,6 +28,7 @@ const usePostList = () => {
     slug: post.frontmatter.slug,
     author: post.frontmatter.author,
     excerpt: post.excerpt,
+    image: post.frontmatter.image.childImageSharp.fluid,
   }));
 };
 

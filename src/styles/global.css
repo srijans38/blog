@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .blur-filter {
+    -webkit-backdrop-filter: saturate(200%) blur(25px);
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}

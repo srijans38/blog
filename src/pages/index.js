@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { graphql, useStaticQuery } from 'gatsby';
 import usePostList from '../hooks/use-post-list';
 import PostDisplay from '../components/post-display';
+import Layout from '../components/layout';
 
 function Index({ data }) {
   const me = useStaticQuery(graphql`
@@ -21,7 +22,7 @@ function Index({ data }) {
   const posts = usePostList();
 
   return (
-    <main className="container mt-12 px-6 lg:px-36 sm:mx-auto font-body box-border">
+    <Layout>
       <Helmet>
         <title>Srijan's Blog</title>
         <meta name="description" content="This is Srijan's Blog" />
@@ -106,10 +107,12 @@ function Index({ data }) {
         </div>
       </header>
       <div className="mt-12 h-px w-full bg-gradient-to-r from-white via-black to-white"></div>
-      {posts.map((post) => (
-        <PostDisplay key={post.slug} post={post} />
-      ))}
-    </main>
+      <div className="mt-12 space-y-16">
+        {posts.map((post) => (
+          <PostDisplay key={post.slug} post={post} />
+        ))}
+      </div>
+    </Layout>
   );
 }
 
