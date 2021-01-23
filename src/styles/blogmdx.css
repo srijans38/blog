@@ -11,6 +11,6 @@ code {
 }
 
 .content {
-  @apply prose-sm md:prose-xl prose-indigo;
+  @apply prose-lg md:prose-xl prose-indigo;
   overflow-x: hidden;
 }
