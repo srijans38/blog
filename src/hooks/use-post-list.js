@@ -11,7 +11,7 @@ const usePostList = () => {
             author
             slug
             title
-            date
+            date(formatString: "Do [of] MMMM, YYYY")
             image {
               childImageSharp {
                 fluid(maxHeight: 200, maxWidth: 180) {

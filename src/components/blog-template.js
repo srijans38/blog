@@ -40,7 +40,7 @@ export const query = graphql`
       frontmatter {
         author
         title
-        date
+        date(formatString: "Do [of] MMMM, YYYY")
         image {
           childImageSharp {
             fluid {
