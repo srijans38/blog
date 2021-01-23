@@ -4,7 +4,6 @@
 
 @layer utilities {
   .blur-filter {
-    -webkit-backdrop-filter: saturate(200%) blur(25px);
-    backdrop-filter: saturate(200%) blur(5px);
+    backdrop-filter: saturate(250%) blur(10px);
   }
 }

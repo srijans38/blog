@@ -2,6 +2,7 @@ import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
 import Layout from './layout';
+import Img from 'gatsby-image';
 import '../styles/blogmdx.css';
 
 export default function BlogTemplate({ data: { mdx: post } }) {
@@ -16,6 +17,10 @@ export default function BlogTemplate({ data: { mdx: post } }) {
       </div>
       <Layout mt="mt-28">
         <h1>{post.frontmatter.title}</h1>
+        <Img
+          fluid={post.frontmatter.image.childImageSharp.fluid}
+          className="rounded md:rounded-lg max-h-80 my-8"
+        />
         <div className="flex mt-4 mb-8 space-x-3 text-gray-600 text-sm">
           <p>{post.frontmatter.date}</p>
           <p>|</p>
@@ -36,6 +41,13 @@ export const query = graphql`
         author
         title
         date
+        image {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
       }
       body
       timeToRead

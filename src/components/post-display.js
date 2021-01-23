@@ -7,7 +7,7 @@ export default function PostDisplay({ post }) {
     <div className="flex relative font-body">
       <Link to={post.slug}>
         <Image
-          className="hidden md:block rounded-2xl w-44 h-48 z-10"
+          className="hidden md:block rounded-2xl w-44 h-48 z-10 shadow-2xl"
           fluid={post.image}
         />
       </Link>

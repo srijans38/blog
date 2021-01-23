@@ -30,7 +30,7 @@ const usePostList = () => {
     slug: post.frontmatter.slug,
     author: post.frontmatter.author,
     excerpt: post.excerpt,
-    image: post.frontmatter.image.childImageSharp.fluid,
+    image: post.frontmatter.image?.childImageSharp.fluid,
     date: post.frontmatter.date,
     timeToRead: post.timeToRead,
   }));
