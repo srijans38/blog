@@ -13,7 +13,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['active'],
+      translate: ['group-hover'],
+    },
   },
   plugins: [require('@tailwindcss/typography')],
 };
