@@ -3,7 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 const usePostList = () => {
   const data = useStaticQuery(graphql`
     query MyQuery {
-      allMdx(sort: { fields: frontmatter___image___changeTime, order: DESC }) {
+      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
         nodes {
           excerpt(pruneLength: 200)
           timeToRead
