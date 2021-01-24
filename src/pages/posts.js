@@ -1,8 +1,11 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import React from 'react';
+import Layout from '../components/layout';
+import Header from '../components/header';
+import { useStaticQuery, graphql } from 'gatsby';
 
-const usePostList = () => {
+export default function Posts() {
   const data = useStaticQuery(graphql`
-    query MyQuery {
+    query {
       allMdx(sort: { fields: frontmatter___date, order: DESC }, limit: 4) {
         nodes {
           excerpt(pruneLength: 200)
@@ -25,15 +28,12 @@ const usePostList = () => {
     }
   `);
 
-  return data.allMdx.nodes.map((post) => ({
-    title: post.frontmatter.title,
-    slug: post.frontmatter.slug,
-    author: post.frontmatter.author,
-    excerpt: post.excerpt,
-    image: post.frontmatter.image?.childImageSharp.fluid,
-    date: post.frontmatter.date,
-    timeToRead: post.timeToRead,
-  }));
-};
-
-export default usePostList;
+  return (
+    <>
+      <Header />
+      <Layout mt="mt-28">
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </Layout>
+    </>
+  );
+}

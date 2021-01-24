@@ -21,5 +21,22 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         slug: post.frontmatter.slug,
       },
     });
+    reporter.info(`Created Page ${post.frontmatter.slug}`);
   });
+
+  const postsList = await graphql(`
+    query {
+      allMdx(limit: 5) {
+        pageInfo {
+          pageCount
+        }
+      }
+    }
+  `);
+
+  const { pageCount } = postsList.data.allMdx.pageInfo;
+
+  for (let i = 0; i < pageCount; i++) {
+    reporter.info(`${i}`);
+  }
 };
