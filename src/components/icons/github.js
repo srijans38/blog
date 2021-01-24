@@ -2,7 +2,12 @@ import * as React from 'react';
 
 function GitHubIcon(props) {
   return (
-    <a href="https://github.com/srijans38" rel="noreferrer" target="_blank">
+    <a
+      href="https://github.com/srijans38"
+      rel="noreferrer"
+      target="_blank"
+      aria-label="Github"
+    >
       <svg
         width={48}
         height={48}

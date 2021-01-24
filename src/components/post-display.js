@@ -6,7 +6,7 @@ export default function PostDisplay({ post }) {
   return (
     <div className="flex relative font-body">
       <div className="group">
-        <Link to={post.slug}>
+        <Link to={post.slug} aria-label={post.title}>
           <Image
             className="hidden md:block rounded-2xl w-44 h-48 z-10 shadow-2xl transform transition group-hover:-translate-x-1 group-hover:-translate-y-1"
             alt={post.title}
