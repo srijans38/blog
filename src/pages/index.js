@@ -1,6 +1,5 @@
 import React from 'react';
 import Img from 'gatsby-image';
-import { Helmet } from 'react-helmet';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import usePostList from '../hooks/use-post-list';
 import PostDisplay from '../components/post-display';
@@ -9,6 +8,7 @@ import GitHubIcon from '../components/icons/github';
 import InstagramIcon from '../components/icons/instagram';
 import TwitterIcon from '../components/icons/twitter';
 import LinkedInIcon from '../components/icons/linkedin';
+import SEO from '../components/seo';
 
 function Index({ data }) {
   const me = useStaticQuery(graphql`
@@ -27,11 +27,7 @@ function Index({ data }) {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Srijan's Blog</title>
-        <meta name="description" content="This is Srijan's Blog" />
-        <html lang="en" />
-      </Helmet>
+      <SEO title="Home" />
       <header className="relative">
         <Img
           className="rounded-full w-28 h-28 lg:w-44 lg:h-44 z-10 shadow-img pointer-events-none"

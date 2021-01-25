@@ -1,8 +1,9 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import React from 'react';
 import Header from './header';
 import Layout from './layout';
 import PostDisplay from './post-display';
+import SEO from './seo';
 
 export default function AllPosts({
   data: {
@@ -23,6 +24,7 @@ export default function AllPosts({
 
   return (
     <>
+      <SEO title={`All Posts | Page ${currentPage}`} />
       <Header />
       <Layout mt="mt-24">
         <div className="w-full h-8 text-xs md:text-base flex items-center">

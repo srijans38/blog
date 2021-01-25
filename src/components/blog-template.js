@@ -5,10 +5,17 @@ import Layout from './layout';
 import Header from './header';
 import Img from 'gatsby-image';
 import '../styles/blogmdx.css';
+import SEO from './seo';
 
 export default function BlogTemplate({ data: { mdx: post } }) {
   return (
     <>
+      <SEO
+        title={post.frontmatter.title}
+        image={post.frontmatter.image.childImageSharp.fixed.src}
+        description={post.excerpt}
+        article
+      />
       <Header />
       <Layout mt="mt-28">
         <h1>{post.frontmatter.title}</h1>
@@ -41,9 +48,13 @@ export const query = graphql`
             fluid {
               ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
+            fixed(width: 1200, height: 630, fit: CONTAIN) {
+              src
+            }
           }
         }
       }
+      excerpt
       body
       timeToRead
     }

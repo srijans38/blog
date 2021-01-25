@@ -1,7 +1,13 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: 'https://blog.srij.dev/',
     title: "Srijan's Blog",
+    description:
+      'Hi! I am Srijan and I write about Web development, life and cooking(maybe).',
+    url: 'https://blog.srij.dev',
+    siteUrl: 'https://blog.srij.dev',
+    image: '/images/srijan.jpg',
+    twitterUsername: '@guywithabignose',
+    titleTemplate: "%s | Srijan's Blog",
   },
   plugins: [
     {
@@ -49,8 +55,12 @@ module.exports = {
         name: "Srijan's Blog",
         short_name: "Srijan's Blog",
         start_url: '/',
-        icon: `src/images/gatsby-icon.png`,
+        background_color: '#1e2835',
+        theme_color: '#1e2835',
+        display: 'standalone',
+        icon: `src/images/blog-icon.jpg`,
       },
     },
+    `gatsby-plugin-offline`,
   ],
 };
