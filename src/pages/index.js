@@ -1,7 +1,7 @@
 import React from 'react';
 import Img from 'gatsby-image';
 import { Helmet } from 'react-helmet';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import usePostList from '../hooks/use-post-list';
 import PostDisplay from '../components/post-display';
 import Layout from '../components/layout';
@@ -49,10 +49,16 @@ function Index({ data }) {
         </div>
       </header>
       <div className="mt-12 h-px w-full bg-gradient-to-r from-white via-black to-white"></div>
-      <div className="mt-8 md:mt-12 space-y-8 md:space-y-16">
+      <div className="mt-8 md:mt-12 space-y-8 md:space-y-16 flex flex-col">
         {posts.map((post) => (
           <PostDisplay key={post.slug} post={post} />
         ))}
+        <Link
+          className="w-max mx-2 px-2 py-2 self-center rounded cursor-pointer ring-2 ring-gray-400 text-gray-500  hover:text-gray-800 focus:ring-gray-700"
+          to="/posts"
+        >
+          <p>View all Posts</p>
+        </Link>
       </div>
     </Layout>
   );

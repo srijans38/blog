@@ -37,6 +37,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const { pageCount } = postsList.data.allMdx.pageInfo;
 
   for (let i = 0; i < pageCount; i++) {
-    reporter.info(`${i}`);
+    actions.createPage({
+      path: `posts${i === 0 ? '' : `/${i + 1}`}`,
+      component: require.resolve('./src/components/all-posts.js'),
+      context: {
+        skip: i * 5,
+      },
+    });
   }
 };

@@ -6,7 +6,7 @@ export default function PostDisplay({ post }) {
   return (
     <div className="flex relative font-body">
       <div className="group">
-        <Link to={post.slug} aria-label={post.title}>
+        <Link to={`/${post.slug}`} aria-label={post.title}>
           <Image
             className="hidden md:block rounded-2xl w-44 h-48 z-10 shadow-2xl transform transition group-hover:-translate-x-1 group-hover:-translate-y-1"
             alt={post.title}
@@ -16,8 +16,8 @@ export default function PostDisplay({ post }) {
         <div className="hidden md:block rounded-2xl bg-gray-800 w-44 h-48 absolute top-4 left-4 transform transition group-hover:translate-x-1 group-hover:translate-y-1"></div>
       </div>
       <div className="ml-0 md:ml-16 flex flex-col">
-        <Link to={post.slug}>
-          <h2 className="font-heading text-2xl transition-colors hover:text-gray-700 ">
+        <Link to={`/${post.slug}`}>
+          <h2 className="break-all md:break-normal font-heading text-2xl transition-colors hover:text-gray-600 ">
             {post.title}
           </h2>
         </Link>
