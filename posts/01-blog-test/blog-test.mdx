@@ -1,13 +1,16 @@
 ---
-title: 9 Projects you can do to become a Frontend Master
+title: Test Post
 slug: test
 author: Srijan Sharma
 date: 2021-01-24
 image: ./download.jpeg
 ---
 
-Whether you are new to programming or already an experienced developer. In this industry, learning new concepts and languages/frameworks is
-mandatory to keep up with the rapid changes. Take for example React - open-sourced by Facebook just a shy 4 years ago it already became the number one choice for JavaScript devs around the globe. But also Vue and Angular, of course, have their legitimate follower-base. And then there is
+import { useState } from 'react';
+
+This is a test post. The image is of a cat because it's the internet and internet loves cat.
+
+Here's a Code Snippet
 
 ```jsx
 import React from 'react';
@@ -23,9 +26,26 @@ export default function Test() {
 }
 ```
 
-<button className="rounded-lg py-2 px-4 transition bg-blue-500 focus:outline-none active:bg-blue-800">
-  Click Me
-</button>
+Here's a React Component inside mdx. Click the button! He's asking for it.
+
+export const Counter = () => {
+  const [count, setCount] = useState(0);
+  return (
+    <>
+      <p>{count}</p>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+        className="rounded-lg py-2 px-4 transition bg-blue-500 focus:outline-none active:bg-blue-800"
+      >
+        Click Me
+      </button>
+    </>
+  );
+};
+
+<Counter />
 
 **This is Bold**
 
