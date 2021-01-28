@@ -15,6 +15,7 @@ const SEO = ({ title, description, image, article }) => {
     siteUrl,
     defaultImage,
     twitterUsername,
+    fbAppId,
   } = site.siteMetadata;
 
   const seo = {
@@ -31,9 +32,15 @@ const SEO = ({ title, description, image, article }) => {
       <meta name="theme_color" content="#1e2835" />
       <html lang="en" />
 
+      {<meta property="fb:app_id" content={fbAppId} />}
+
       {seo.url && <meta property="og:url" content={seo.url} />}
 
-      {(article ? true : null) && <meta property="og:type" content="article" />}
+      {article ? (
+        <meta property="og:type" content="article" />
+      ) : (
+        <meta property="og:type" content="blog" />
+      )}
 
       {seo.title && <meta property="og:title" content={seo.title} />}
 
@@ -86,6 +93,7 @@ const query = graphql`
         siteUrl: url
         defaultImage: image
         twitterUsername
+        fbAppId
       }
     }
   }
