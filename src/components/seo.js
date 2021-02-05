@@ -65,6 +65,7 @@ const SEO = ({ title, description, image, article }) => {
       )}
 
       {seo.image && <meta name="twitter:image" content={seo.image} />}
+      <meta name="google-site-verification" content="86ie4LQ8F1eUHrE73kyXY-l23qV7aPBYVrdzJ2slU4U" />
     </Helmet>
   );
 };
