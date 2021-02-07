@@ -12,5 +12,5 @@ code {
 
 .content {
   @apply prose-lg md:prose-xl prose-indigo;
-  overflow-x: hidden;
+  overflow: hidden;
 }

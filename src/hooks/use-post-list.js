@@ -15,7 +15,7 @@ const usePostList = () => {
             image {
               childImageSharp {
                 fluid(maxHeight: 200, maxWidth: 180) {
-                  ...GatsbyImageSharpFluid_withWebp
+                  ...GatsbyImageSharpFluid
                 }
               }
             }
