@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 3px;
+  }
+}
+
 @layer utilities {
   .blur-filter {
     backdrop-filter: saturate(250%) blur(5px);
