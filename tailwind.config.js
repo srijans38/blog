@@ -10,6 +10,9 @@ module.exports = {
       boxShadow: {
         img: '8px 8px 13px rgba(0, 0, 0, 0.25)',
       },
+      colors: {
+        header: 'rgba(255, 255, 255, 0.75)',
+      },
     },
   },
   variants: {
