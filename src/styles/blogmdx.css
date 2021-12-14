@@ -20,6 +20,11 @@ kbd {
   @apply border-2 border-gray-800 rounded-md mx-1 py-1 px-2;
 }
 
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+  background: #111;
+}
+
 .content {
   @apply prose-sm md:prose-lg prose-indigo;
   overflow: hidden;
