@@ -13,12 +13,25 @@ h3 {
 }
 
 code {
-  @apply rounded-lg select-all;
+  @apply py-1 px-2 !important;
+}
+
+kbd {
+  @apply border-2 border-gray-800 rounded-md mx-1 py-1 px-2;
 }
 
 .content {
   @apply prose-sm md:prose-lg prose-indigo;
   overflow: hidden;
+}
+
+.content a {
+  @apply text-blue-700;
+  text-decoration: underline 0.2rem;
+}
+
+ul {
+  list-style: inside;
 }
 
 img.gatsby-resp-image-image {
