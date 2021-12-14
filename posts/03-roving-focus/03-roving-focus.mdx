@@ -1,0 +1,153 @@
+---
+title: Building a Keyboard Accessible Custom Menu using Roving Focus | From Scratch - 1
+slug: roving-tabindex-from-scratch
+author: Srijan Sharma
+date: 2021-12-15
+image: ./keyboard.jpg
+---
+
+Welcome to From Scratch, where we build solutions to commonly known problems, from scratch.
+
+In this iteration, let's build a keyboard accessible menu component.
+
+## The Problems
+
+Most front-end projects do end up needing a custom tailor-made solution for something like a drop-down or a menu. These solutions may end up looking really fancy and can lead to a unique touch for your app that users appreciate and recognize.
+
+But, they are really not accessible by default. Try to use them with a keyboard or a screen reader and they fall apart, and can lead to your app being rendered completely unusable (forgive the pun 😉).
+
+One of the main problems keyboard users face is that most custom menus do not handle focus very well/at all. Something like the behavior that can be seen below.
+
+Notice how the focus just jumps when tabbing between our custom menu components. How do we select something inside the menu? This is really bad. What's the point of having a custom-made solution that is literally unusable?
+
+## The Functionality we want
+
+Now, let's look at how we want our custom menu to behave with keyboard inputs.
+
+- <kbd>Tab</kbd> / <kbd>Shift</kbd> + <kbd>Tab</kbd> should allow us to jump between
+  the whole menus, without the focus going inside a menu.
+- <kbd>↑</kbd> and <kbd>↓</kbd> should allow us to navigate inside a menu.
+- <kbd>Space</kbd> should allow us to select/ perform an intended action that the
+  focus is currently on (So, basically a click).
+- If we jump from a menu to another and then jump back, our initially selected element should be in focus already.
+
+So, with our requirements compiled, let's see how we would go about making our component accessible.
+
+## The Solution
+
+Before we look at our solution, let's first clear our fundamentals. By, default only interactive elements such as `<button>`, `<a>`, etc are focusable. But, how do we make any element focusable?
+
+### The `tabindex` attribute
+
+Well, this is how. Setting the `tabindex` attribute on an element denotes that it can be focused when tabbing using a keyboard. It takes an integer, which decides the behavior
+
+- 0 means that the element will be focusable in the order of the source document.
+- A positive number denotes that the element will be focusable and the order is dependent on the this value itself. So, elements with a `tabindex="2"` will be focused first before elements with a `tabindex="1"` and so on.
+- A negative number denotes that the element will not be focusable using the keyboard.
+
+### The strategy
+
+First, we have to make sure that the top level element in our custom menu(let's say a div) has a `tabindex="0"` on it and the children have a `tabindex="-1"` on them.
+
+```html
+<div class="menu" tabindex="0">
+  <a href="https://google.com" target="_blank" tabindex="-1">Link to Google</a>
+  <a href="#" tabindex="-1">Link</a>
+  <a href="#" tabindex="-1">Link</a>
+  <a href="#" tabindex="-1">Link</a>
+  <a href="#" tabindex="-1">Link</a>
+</div>
+<div class="menu" tabindex="0">
+  <a href="#" tabindex="-1">Link</a>
+  <a href="#" tabindex="-1">Link</a>
+  <a href="#" tabindex="-1">Link</a>
+  <a href="#" tabindex="-1">Link</a>
+  <a href="#" tabindex="-1">Link</a>
+</div>
+```
+
+As soon the top level element is focused, We set `tabindex="0"` on its first child(by default) and programmatically focus it using `element.focus()`.
+
+Then, we can setup an event listener for the `keydown` event and handle <kbd>↑</kbd>, <kbd>↓</kbd> and <kbd>Space</kbd> keys in our event handler.
+
+When <kbd>↑</kbd> is pressed, we set `tabindex="-1"` on the currently focused element(say element N), and set `tabindex="0"` on the element before it(say element N-1). Now, we programmtically focus the N-1 element, which now becomes our focused element.
+
+Now, we can do the same thing for <kbd>↓</kbd>, just in the opposite direction. So, going from element N to element N+1.
+
+### Making it circular
+
+So, we can now move focus up and down using the arrow keys, but, what happens if we hit <kbd>↑</kbd> when we are on the first element and <kbd>↓</kbd> when we are on the last element.
+
+To handle this edge case, we first check if the currently selected element is either the first element or the last element. If it is, we can just invert the focus when the key is pressed. So going from last element to first and first to last.
+
+## Putting it all together
+
+### JavaScript
+
+```js
+const menuList = document.querySelectorAll('.menu');
+
+menuList.forEach((menu) => {
+  const children = Array.from(menu.children);
+  let current = 0;
+  const handleKeyDown = (e) => {
+    if (!['ArrowUp', 'ArrowDown', 'Space'].includes(e.code)) return;
+    if (e.code === 'Space') {
+      children[current].click();
+      return;
+    }
+    const selected = children[current];
+    selected.setAttribute('tabindex', -1);
+    let next;
+    if (e.code === 'ArrowDown') {
+      next = current + 1;
+      if (current == children.length - 1) {
+        next = 0;
+      }
+    } else if ((e.code = 'ArrowUp')) {
+      next = current - 1;
+      if (current == 0) {
+        next = children.length - 1;
+      }
+    }
+    children[next].setAttribute('tabindex', 0);
+    children[next].focus();
+    current = next;
+  };
+
+  menu.addEventListener('focus', (e) => {
+    if (children.length > 0) {
+      menu.setAttribute('tabindex', -1);
+      children[current].setAttribute('tabindex', 0);
+      children[current].focus();
+    }
+
+    menu.addEventListener('keydown', handleKeyDown);
+  });
+
+  menu.addEventListener('blur', (e) => {
+    menu.removeEventListener('keydown', handleKeyDown);
+  });
+});
+```
+
+## Result
+
+<iframe
+  height="800"
+  style="width: 100%;"
+  scrolling="no"
+  title="Roving focus in a custom menu"
+  src="https://codepen.io/srijans38/embed/YzrpgNe?default-tab=result&theme-id=dark"
+  frameborder="no"
+  loading="lazy"
+  allowtransparency="true"
+  allowfullscreen="true"
+>
+  See the Pen{' '}
+  <a href="https://codepen.io/srijans38/pen/YzrpgNe">
+    Roving focus in a custom menu
+  </a>{' '}
+  by Srijan Sharma (<a href="https://codepen.io/srijans38">@srijans38</a>) on{' '}
+  <a href="https://codepen.io">CodePen</a>.
+</iframe>
