@@ -1,4 +1,4 @@
- ---
+---
 title: Is this the best way of creating a modal in React
 slug: build-modal-in-react
 author: Srijan Sharma
@@ -33,6 +33,7 @@ So, let's have a look at some actual code.
 First we will build the `ModalRoot` Component that will contain the logic/UI for the modal and will render the trigger and the modal.
 
 The props that `ModalRoot` will take are:
+
 ```tsx
 type Props = {
   render: (setShown: Dispatch<SetStateAction<boolean>>) => React.ReactNode;
@@ -40,6 +41,7 @@ type Props = {
 ```
 
 And, `ModalRoot` code is:
+
 ```tsx
 const ModalRoot = ({ render }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,12 +52,12 @@ const ModalRoot = ({ render }: Props) => {
       {isOpen && (
         <Portal.Root
           onClick={(e) => {
-            setIsOpen(false);  // Closing the modal when clicked outside
+            setIsOpen(false); // Closing the modal when clicked outside
           }}
         >
           <div
             onClick={(e) => {
-			  // Stopping propogation to prevent the modal from closing when clicking anywhere inside
+              // Stopping propogation to prevent the modal from closing when clicking anywhere inside
               e.stopPropagation();
             }}
           >
@@ -73,8 +75,12 @@ Here, I am using Radix UI's [Portal Utility](https://www.radix-ui.com/docs/primi
 So, that is our modal done. Now, we can start creating different triggers that render in the UI.
 
 Let's create a `ModalButton` Component that will render a button and trigger the modal when clicked.
+
 ```tsx
-type ModalButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>;
+type ModalButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'onClick'
+>;
 
 const ModalButton = (props: ModalButtonProps) => {
   return (
