@@ -35,7 +35,8 @@ pre[class*='language-'] {
   text-decoration: underline 0.2rem;
 }
 
-ul {
+ul,
+ol {
   list-style: inside;
 }
 

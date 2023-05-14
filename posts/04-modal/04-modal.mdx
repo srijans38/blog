@@ -1,0 +1,106 @@
+---
+title: Is this the best way of creating a modal in React
+slug: build-modal-in-react
+author: Srijan Sharma
+date: 2023-05-14
+image: ./modal.png
+---
+
+Building a modal component in React can be pretty easy until it gets way way messier trying to handle all the edge cases and making it work with all of the design requirements.
+
+## What are we actually trying to solve?
+
+So, here's a list of features that we want to attain from our ideal Modal Component:
+
+1. It should be rendered outside of the React "root".
+2. The internal state of the modal(i.e `isOpen`) should be contained within the component itself.
+3. Triggering of the modal should be separate from rendering of the modal.
+4. There can be multiple ways/elements that could trigger the modal.
+
+## How will we solve it?
+
+The strategy that I came up with to solve these issues are:
+
+1. Using React portals to render the modal inside `document.body`
+2. Keeping the state of whether the modal is shown inside the modal component.
+3. Using a separate component as the trigger for opening the modal.
+4. Using the render props pattern to accommodate a number of different "triggers" while not having to repeat the logic for the modal.
+
+## Implementation
+
+So, let's have a look at some actual code.
+
+First we will build the `ModalRoot` Component that will contain the logic/UI for the modal and will render the trigger and the modal.
+
+The props that `ModalRoot` will take are:
+
+```tsx
+type Props = {
+  render: (setShown: Dispatch<SetStateAction<boolean>>) => React.ReactNode;
+};
+```
+
+And, `ModalRoot` code is:
+
+```tsx
+const ModalRoot = ({ render }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      {render?.(setIsOpen)}
+      {isOpen && (
+        <Portal.Root
+          onClick={(e) => {
+            setIsOpen(false); // Closing the modal when clicked outside
+          }}
+        >
+          <div
+            onClick={(e) => {
+              // Stopping propogation to prevent the modal from closing when clicking anywhere inside
+              e.stopPropagation();
+            }}
+          >
+            {/* Actual modal logic here */}
+          </div>
+        </Portal.Root>
+      )}
+    </>
+  );
+};
+```
+
+Here, I am using Radix UI's [Portal Utility](https://www.radix-ui.com/docs/primitives/utilities/portal) to create and render the modal inside a React portal.
+
+So, that is our modal done. Now, we can start creating different triggers that render in the UI.
+
+Let's create a `ModalButton` Component that will render a button and trigger the modal when clicked.
+
+```tsx
+type ModalButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'onClick'
+>;
+
+const ModalButton = (props: ModalButtonProps) => {
+  return (
+    <ModalRoot
+      render={(setShown) => (
+        <button
+          {...props}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShown((v) => !v);
+          }}
+        />
+      )}
+    />
+  );
+};
+```
+
+Similarly, you can create different "Trigger" Components that use the same modal under the hood.
+
+You can also extend the functionality of this modal by taking a prop for something that is needed for the modal to render and act upon. For example, if the modal is submitting a form to update the data of an entity in the back-end, you could take the `id` of that entity as a prop.
+
+So, is this the best way of creating a modal in React?
